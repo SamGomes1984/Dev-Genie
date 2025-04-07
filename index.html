@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>DevGenie Login</title>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
+</head>
+<body>
+  <h2>Login to DevGenie</h2>
+  <button onclick="login()">Sign in with Google</button>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCH0Wwx97ymQxeD08yoDKw3i1QOf_hEwng",
+      authDomain: "dev-genie-e4ede.firebaseapp.com",
+      projectId: "dev-genie-e4ede",
+      appId: "1:390698821035:web:f2b6c5550a9f8847741eee"
+    }
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const provider = new firebase.auth.GoogleAuthProvider();
+
+    function login() {
+      auth.signInWithPopup(provider).then((result) => {
+        const user = result.user;
+        user.getIdToken().then(token => {
+          // Now send token to your CLI (via local server, query param, or paste)
+          alert("Copy this token and paste in terminal:\n\n" + token);
+        });
+      }).catch((error) => {
+        alert("Login failed: " + error.message);
+      });
+    }
+  </script>
+</body>
+</html>
